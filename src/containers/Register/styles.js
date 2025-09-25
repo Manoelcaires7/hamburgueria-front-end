@@ -55,12 +55,7 @@ a{
 export const Title = styled.div `
  font-family: "Road Rage", sans-serif;
  font-size: 40px;
- color: #fff;
-
- span{
-    font-family: "Road Rage", sans-serif;
-    color: #9758a6
- }
+ color: #9758a6;
 
 `;
 
@@ -104,7 +99,7 @@ gap: 20px;
 padding: 20px;
 width: 100%;
 max-width: 400px;
-`
+`;
 
 export const Link = styled(ReactLink) `
 text-decoration: none;

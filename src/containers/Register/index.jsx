@@ -9,42 +9,55 @@ import { Container, LeftContainer, RightContainer, Title, InputContainer, Form, 
 import Logo from "../../assets/Logo1.svg"
 import { Button } from "../../components/Button";
 
-export function Login() {
+export function Register() {
     const navigate = useNavigate();
+
     const schema = yup.object({
+        
+        name: yup.string().required('O Nome é OBRIGATÓRIO'),
+
         email: yup.string().email('Por favor, digite seu email').required('O Email é OBRIGATÓRIO'),
+        
         password: yup.string().min(6, 'Sua senha, deve ter, no minímo, 6 caracteres').required('A Senha é OBRIGATÓRIA'),
-    }).required();
+
+        confirmPassword: yup.string().oneOf([yup.ref('password')], 'As senhas devem ser iguais').required('A Confirmação de Senha é OBRIGATÓRIA')
+    })
+    .required();
+
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
     const onSubmit = async data => {
-        const response = await toast.promise(
-            api.post("/session", {
+
+        try {
+                   const {status} = await api.post("/users", {
+            name: data.name,
             email: data.email,
             password: data.password,
-        }),
-        {
-        pending: 'Estamos verificando seus Dados! ⏳',
-        success: {
-            render() {
-                setTimeout(() => {
-                    navigate('/home');
-                }, 2000);
-                return 'Oi, Seja Bem Vindo(a)! 🎉'
-            }
         },
-        error: 'Email ou Senha Inválidos!🤔'
+
+        {
+            validateStatus:  () => true,
+        },
+    );
+    
+    if (status === 200 || status === 201) {
+        setTimeout(() => {
+            navigate('/login');
+        }, 2000);
+        toast.success('Conta criada com sucesso')
+    } else if(status === 400){
+        toast.error('Email já cadastrado! Faça login para continuar')
+    } else{
+        throw new Error();
+    }
+
+} catch (error) {
+        toast.error('😓, falha no sistema, Tente Novamente!')    
         }
-        )
+};
 
-
-
-
-
-        console.log(response);
-    };
 
     console.log(errors);
 
@@ -54,12 +67,13 @@ export function Login() {
                 <img src={Logo} alt="Logo-dev" />
             </LeftContainer>
             <RightContainer>
-                <Title>
-                    Olá, seja bem vindo ao <span>Dev Burguer!</span>
-                    <br />
-                    Acesse com seu <span>Login e senha.</span>
-                </Title>
+                <Title>Crie sua conta</Title>
                 <Form onSubmit={handleSubmit(onSubmit)}>
+                    <InputContainer>
+                        <label>Nome</label>
+                        <input type="text" {...register("name")} />
+                        <p>{errors?.name?.message}</p>
+                    </InputContainer>
                     <InputContainer>
                         <label>Email</label>
                         <input type="email" {...register("email")} />
@@ -69,12 +83,16 @@ export function Login() {
                         <label>Senha</label>
                         <input type="password" {...register("password")} />
                         <p>{errors?.password?.message}</p>
-
                     </InputContainer>
-                    <Button type="submit">Entrar</Button>
+                    <InputContainer>
+                        <label>Confirmar a Senha</label>
+                        <input type="password" {...register("confirmPassword")} />
+                        <p>{errors?.confirmPassword?.message}</p>
+                    </InputContainer>
+                    <Button type="submit">Criar Conta</Button>
                 </Form>
-                <p> 
-                 Não tem conta? <Link to="/cadastro">Clique aqui!</Link>
+                <p>
+                Já possui contar? <Link to="/login">Clique aqui!</Link>
                 </p>
             </RightContainer>
         </Container>
