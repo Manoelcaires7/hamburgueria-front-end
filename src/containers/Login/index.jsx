@@ -20,33 +20,38 @@ export function Login() {
         resolver: yupResolver(schema)
     });
     const onSubmit = async data => {
+
+    try {
         const response = await toast.promise(
-            api.post("/session", {
-            email: data.email,
-            password: data.password,
-        }),
-        {
-        pending: 'Estamos verificando seus Dados! ⏳',
-        success: {
-            render() {
-                setTimeout(() => {
-                    navigate('/home');
-                }, 2000);
-                return 'Oi, Seja Bem Vindo(a)! 🎉'
+                api.post("/session", {
+                    email: data.email,
+                    password: data.password,
+                }),
+                {
+                    pending: 'Estamos verificando seus Dados! ⏳',
+                    success: ' Bem vindo! ',
+                }
+            );
+
+            localStorage.setItem('token', response.data.token);
+
+
+        if (response.status === 200 || response.status === 201) {
+                    setTimeout(() => {
+                        navigate('/home');
+                    }, 2000);
+        } else if (response.status === 400) {
+                    toast.error('Essa Conta Não Existe! Crie uma conta para continuar');
+                } else {
+                    throw new Error();
+                }
+            } catch (error) {
+                toast.error('😓, falha no sistema, Tente Novamente!');
             }
-        },
-        error: 'Email ou Senha Inválidos!🤔'
-        }
-        )
 
 
+};
 
-
-
-        console.log(response);
-    };
-
-    console.log(errors);
 
     return (
         <Container>
@@ -73,8 +78,8 @@ export function Login() {
                     </InputContainer>
                     <Button type="submit">Entrar</Button>
                 </Form>
-                <p> 
-                 Não tem conta? <Link to="/cadastro">Clique aqui!</Link>
+                <p>
+                    Não tem conta? <Link to="/cadastro">Clique aqui!</Link>
                 </p>
             </RightContainer>
         </Container>

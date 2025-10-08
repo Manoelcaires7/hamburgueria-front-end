@@ -1,6 +1,6 @@
 import {Link as ReactLink} from 'react-router-dom';
 import styled from 'styled-components';
-import BackgroundLogin from '../../assets/Background1.svg'
+import BackgroundLogin from '../../assets/Background-login.svg'
 import BackgroundForm from '../../assets/Background.svg'
 
 
@@ -24,13 +24,14 @@ align-items: center;
 justify-content: center;
 
 img{
-    width: 80%;
+    width: 70%;
 }
 ;
 `;
 
 export const RightContainer = styled.div `
 background: url('${BackgroundForm}');
+background-size: cover;
 background-color: #1E1E1E;
 display: flex;
 justify-content: center;
