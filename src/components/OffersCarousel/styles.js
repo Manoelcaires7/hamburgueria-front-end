@@ -12,19 +12,18 @@ export const Container = styled.div`
 export const Title = styled.h2`
 font-size: 35px;
 font-weight: 800;
-color: #9758a6;
+color: #61a120;
 padding-bottom: 12px;
 position: relative;
 text-align: center;
-margin-bottom: 40px;
-margin-top: 20px;
+margin: 70px 0;
 
 &::after{
     content: '';
     position: absolute;
     width: 56px;
     height: 4px;
-    background-color: #9758a6;
+    background-color: #61a120;
     left: calc(50% - 28px);
 }
 
