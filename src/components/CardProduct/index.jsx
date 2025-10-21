@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
 import { CardImage, Container } from "./styles"
+import { CartButton } from "../CartButton"
 
 
 export function CardProduct({product}) {
@@ -11,6 +12,7 @@ console.log(product)
                 <p>{product.name}</p>
                 <strong>{product.price}</strong>
             </div>
+            <CartButton></CartButton>
         </Container>
     )
 

@@ -18,9 +18,25 @@ div{
     justify-content: space-between;
 }
 
+p{
+    font-size: 18px;
+    color: #ff8c05;
+    line-height: 20px;
+    font-weight: 700;
+    margin-top: 40px;
+}
+
+strong{
+    font-size: 22px;
+    color: #363636;
+    font-weight: 800;
+    line-height: 20px;
+}
+
 `;
 
 export const CardImage = styled.img`
-
-
+height: 100%;
+position: absolute;
+top: -50px;
 `;
