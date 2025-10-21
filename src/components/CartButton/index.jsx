@@ -1,4 +1,3 @@
-import { Container } from "../CardProduct/styles";
 import Cart from "../../assets/carrinho-de-compras.svg"
 import { ContainerButton } from "./styles";
 

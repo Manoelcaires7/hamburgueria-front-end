@@ -4,11 +4,14 @@ export const Container = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-gap: 20px;
+gap: 30px;
 padding: 20px;
 border-radius: 8px;
 background-color: #ffffff;
 cursor: grab;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+
 
 div{
     width: 100%;
@@ -16,10 +19,11 @@ div{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 3px;
 }
 
 p{
-    font-size: 18px;
+    font-size: 16px;
     color: #ff8c05;
     line-height: 20px;
     font-weight: 700;
@@ -27,7 +31,7 @@ p{
 }
 
 strong{
-    font-size: 22px;
+    font-size: 20px;
     color: #363636;
     font-weight: 800;
     line-height: 20px;
@@ -36,7 +40,8 @@ strong{
 `;
 
 export const CardImage = styled.img`
-height: 100%;
+height: 63%;
 position: absolute;
-top: -50px;
+top: -60px;
+bottom: 10px;
 `;

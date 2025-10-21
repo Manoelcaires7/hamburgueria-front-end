@@ -31,8 +31,3 @@ linear-gradient(
 url('${Background}');
 height: 900px;
 `
-
-export const Content = styled.div`
-padding-bottom: 70px;
-
-`

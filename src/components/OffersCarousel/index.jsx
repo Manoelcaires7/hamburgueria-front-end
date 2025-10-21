@@ -5,6 +5,7 @@ import "react-multi-carousel/lib/styles.css";
 import { api } from "../../services/api";
 import { Container, Title } from "./styles";
 import { CardProduct } from "../CardProduct";
+import { formatPrice } from "../../utils/formatPrice";
 
 
 export function OffersCarousel() {
@@ -16,7 +17,12 @@ export function OffersCarousel() {
             const { data } = await api.get('/products');
 
 
-            const onlyOffers = data.filter(product => product.offer)
+            const onlyOffers = data
+            .filter(product => product.offer)
+            .map(product => ({
+                    currencyValue: formatPrice(product.price),
+                    ...product
+                }))
 
             setOffers(onlyOffers)
 
@@ -54,10 +60,10 @@ export function OffersCarousel() {
                 infinite={true}
                 partialVisbile={false}
                 itemClass='carousel-item'
-                >
-               {offers.map(product => (
+            >
+                {offers.map(product => (
 
-                <CardProduct key={product.id} product={product}  />
+                    <CardProduct key={product.id} product={product} />
 
                 ))}
 
