@@ -10,6 +10,7 @@ border-radius: 8px;
 background-color: #ffffff;
 cursor: grab;
 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+position: relative;
 
 
 
@@ -40,7 +41,7 @@ strong{
 `;
 
 export const CardImage = styled.img`
-height: 63%;
+height: 58%;
 position: absolute;
 top: -60px;
 bottom: 10px;
