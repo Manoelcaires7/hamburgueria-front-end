@@ -59,7 +59,6 @@ export function Register() {
 };
 
 
-    console.log(errors);
 
     return (
         <Container>
