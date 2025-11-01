@@ -70,3 +70,22 @@ text-decoration: none;
 }
 
 `;
+
+export const ButtonClose = styled.button`
+position: absolute;
+top: 20px;
+right: 20px;
+color: #fff;
+background-color: rgba(61, 60, 60, 0.3);
+padding: 10px 30px;
+border-radius: 25px;
+font-size: 25px;
+font-weight: 700;
+text-decoration: none;
+border: none;
+
+&:hover{
+    background-color: red;
+}
+
+`;

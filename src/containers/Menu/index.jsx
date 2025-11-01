@@ -4,6 +4,7 @@ import { Container, Banner, CategoryMenu, ProductsContainer, CategoryButton } fr
 import { formatPrice } from "../../utils/formatPrice";
 import {CardProduct} from "../../components/CardProduct"
 import { useLocation, useNavigate } from "react-router-dom";
+import { ButtonClose } from "../../components/CategoriesCarousel/styles";
 
 
 export function Menu() {
@@ -81,6 +82,16 @@ return (
                 ESTÁ AQUI!
                 <span>Esse cardápio está irresistível!</span>
             </h1>
+
+            <ButtonClose onClick={ () =>{
+                 navigate(
+                    {
+                        pathname: '/home',
+                        search: '/home',
+                    }
+                  )}}>
+                <span>X</span>
+            </ButtonClose>
 
         </Banner>
         <CategoryMenu>
