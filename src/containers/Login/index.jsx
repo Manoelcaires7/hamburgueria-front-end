@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../hooks/UserContext";
 
 import { Container, LeftContainer, RightContainer, Title, InputContainer, Form, Link } from "./styles"
 import Logo from "../../assets/Logo1.svg"
@@ -11,6 +12,10 @@ import { Button } from "../../components/Button";
 
 export function Login() {
     const navigate = useNavigate();
+
+    const {putUserData} = useUser();
+
+
     const schema = yup.object({
         email: yup.string().email('Por favor, digite seu email').required('O Email é OBRIGATÓRIO'),
         password: yup.string().min(6, 'Sua senha, deve ter, no minímo, 6 caracteres').required('A Senha é OBRIGATÓRIA'),
@@ -19,37 +24,38 @@ export function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
-    const onSubmit = async data => {
-
+const onSubmit = async data => {
     try {
         const response = await toast.promise(
-                api.post("/session", {
-                    email: data.email,
-                    password: data.password,
-                }),
-                {
-                    pending: 'Estamos verificando seus Dados! ⏳',
-                    success: ' Bem vindo! ',
-                }
-            );
-
-            localStorage.setItem('token', response.data.token);
-
-
-        if (response.status === 200 || response.status === 201) {
-                    setTimeout(() => {
-                        navigate('/home');
-                    }, 2000);
-        } else if (response.status === 400) {
-                    toast.error('Essa Conta Não Existe! Crie uma conta para continuar');
-                } else {
-                    throw new Error();
-                }
-            } catch (error) {
-                toast.error('😓, falha no sistema, Tente Novamente!');
+            api.post("/session", {
+                email: data.email,
+                password: data.password,
+            }),
+            {
+                pending: 'Estamos verificando seus Dados! ⏳',
+                success: 'Bem vindo!',
             }
+        );
 
+        const userData = response.data;
+        putUserData(userData);
 
+        if (response && (response.status === 200 || response.status === 201)) {
+            setTimeout(() => {
+                navigate('/home');
+            }, 2000);
+        } else if (response && response.status === 400) {
+            toast.error('Essa Conta Não Existe! Crie uma conta para continuar');
+        } else {
+            throw new Error('Erro inesperado');
+        }
+    } catch (error) {
+        if (error?.response?.status === 400) {
+            toast.error('Essa Conta Não Existe! Crie uma conta para continuar');
+        } else {
+            toast.error('😓, falha no sistema, Tente Novamente!');
+        }
+    }
 };
 
 
@@ -84,4 +90,4 @@ export function Login() {
             </RightContainer>
         </Container>
     );
-}
+};
