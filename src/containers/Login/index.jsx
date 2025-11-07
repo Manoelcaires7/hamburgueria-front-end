@@ -13,7 +13,7 @@ import { Button } from "../../components/Button";
 export function Login() {
     const navigate = useNavigate();
 
-    const {putUserData} = useUser();
+    const { putUserData } = useUser();
 
 
     const schema = yup.object({
@@ -24,39 +24,27 @@ export function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
-const onSubmit = async data => {
-    try {
-        const response = await toast.promise(
+    const onSubmit = async data => {
+        const {data: userData} = await toast.promise(
             api.post("/session", {
                 email: data.email,
                 password: data.password,
             }),
             {
                 pending: 'Estamos verificando seus Dados! ⏳',
-                success: 'Bem vindo!',
+                success: {
+                    render() {
+                        setTimeout(() => {
+                            navigate('/home');
+                        }, 2000);
+                        return 'Oi, Seja Bem Vindo(a)! 🎉'
+                    }
+                },
+                error: 'Email ou Senha Inválidos!🤔'
             }
-        );
-
-        const userData = response.data;
+        )
         putUserData(userData);
-
-        if (response && (response.status === 200 || response.status === 201)) {
-            setTimeout(() => {
-                navigate('/home');
-            }, 2000);
-        } else if (response && response.status === 400) {
-            toast.error('Essa Conta Não Existe! Crie uma conta para continuar');
-        } else {
-            throw new Error('Erro inesperado');
-        }
-    } catch (error) {
-        if (error?.response?.status === 400) {
-            toast.error('Essa Conta Não Existe! Crie uma conta para continuar');
-        } else {
-            toast.error('😓, falha no sistema, Tente Novamente!');
-        }
-    }
-};
+    };
 
 
     return (
