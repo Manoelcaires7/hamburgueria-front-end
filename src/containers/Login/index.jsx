@@ -35,7 +35,7 @@ export function Login() {
                 success: {
                     render() {
                         setTimeout(() => {
-                            navigate('/home');
+                            navigate('/');
                         }, 2000);
                         return 'Oi, Seja Bem Vindo(a)! 🎉'
                     }
