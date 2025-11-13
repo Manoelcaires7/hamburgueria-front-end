@@ -2,8 +2,9 @@ import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { Container, Banner, CategoryMenu, ProductsContainer, CategoryButton } from "./styles"
 import { formatPrice } from "../../utils/formatPrice";
-import {CardProduct, ButtonClose} from "../../components"
+import {CardProduct} from "../../components"
 import { useLocation, useNavigate } from "react-router-dom";
+import { ButtonClose } from "../../components/CategoriesCarousel/styles";
 
 export function Menu() {
 
