@@ -8,7 +8,7 @@ import { useUser } from "../../hooks/UserContext";
 
 import { Container, LeftContainer, RightContainer, Title, InputContainer, Form, Link } from "./styles"
 import Logo from "../../assets/Logo1.svg"
-import { Button } from "../../components/Button";
+import { Button } from "../../components";
 
 export function Login() {
     const navigate = useNavigate();
