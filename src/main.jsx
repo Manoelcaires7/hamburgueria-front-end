@@ -11,7 +11,7 @@ import stripePromise from './config/StripeConfig'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppProvider>
-      <Elements stripe={stripePromise}>
+      <Elements stripe={stripePromise }>
       <RouterProvider router={router} />
       </Elements>
       <GlobalStyles />
