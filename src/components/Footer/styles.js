@@ -10,8 +10,8 @@ justify-content: center;
 
 p{
     color: #fff;
-    font-size: 15px;
-    font-weight: lighter;
+    font-size: 18px;
+    font-weight: 300;
 }
 
 `;
