@@ -7,9 +7,12 @@ import { router } from './routes'
 import AppProvider from './hooks'
 import { Elements } from '@stripe/react-stripe-js'
 import stripePromise from './config/StripeConfig'
+import { ThemeProvider } from 'styled-components'
+import { standardTheme } from './styles/themes/standard'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <ThemeProvider theme={standardTheme}>
     <AppProvider>
       <Elements stripe={stripePromise }>
       <RouterProvider router={router} />
@@ -17,5 +20,6 @@ createRoot(document.getElementById('root')).render(
       <GlobalStyles />
       <ToastContainer autoClose={3000} theme='dark' />
     </AppProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

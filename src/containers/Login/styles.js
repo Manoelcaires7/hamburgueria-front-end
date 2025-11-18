@@ -43,7 +43,7 @@ width: 100%;
 max-width: 50%;
 
 p {
-color: #fff;
+color: ${(props) => props.theme.white};
 font-size: 18px;
 font-weight: 800;
 a{
@@ -54,13 +54,13 @@ a{
 `;
 
 export const Title = styled.div `
- font-family: "Road Rage", sans-serif;
+ font-family: ${(props) => props.theme.roadRageFont};
  font-size: 40px;
- color: #fff;
+ color: ${(props) => props.theme.white};
 
  span{
-    font-family: "Road Rage", sans-serif;
-    color: #9758a6
+    font-family: ${(props) => props.theme.roadRageFont};
+    color: ${(props) => props.theme.purple};
  }
 
 `;
@@ -71,7 +71,7 @@ display:  flex;
 flex-direction: column;
 gap: 5px;
 width: 100%;
-color: #fff;
+color: ${(props) => props.theme.white};
 
 
 input{
@@ -85,7 +85,7 @@ input{
   label {
         font-weight: 600;
         font-size: 18px;
-        color: #fff;
+        color: ${(props) => props.theme.white};
         }
         
         p{
@@ -109,6 +109,6 @@ max-width: 400px;
 
 export const Link = styled(ReactLink) `
 text-decoration: none;
-color: #fff;
+color: ${(props) => props.theme.white};
 `
 ;

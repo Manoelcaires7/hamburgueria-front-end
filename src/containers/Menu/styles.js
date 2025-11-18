@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export const Container = styled.div`
 width: 100%;
 min-height: 100vh;
-background-color: #f0f0f0;
+background-color: ${(props) => props.theme.secondWhite};
 
 background:
 linear-gradient(
@@ -36,14 +36,14 @@ h1{
     font-size: 80px;
     line-height: 65px;
     position: absolute;
-    color: #fff;
+    color: ${(props) => props.theme.white};
 
     right: 20%;
     top: 30%;
 
     span{
         display: block;
-        color: #fff;
+        color: ${(props) => props.theme.white};
         font-size: 20px;
     }
 }
@@ -61,13 +61,13 @@ export const CategoryButton = styled(Link)`
 text-decoration: none;
 cursor: pointer;
 background: none;
-color:  ${(props) => (props.$isActiveCategory ? '#9758a6' : '#828080ff')};
+color: ${(props) => (props.$isActiveCategory ? props.theme.purple : props.theme.secondBlack)};
 font-size: 24px;
 font-weight: 500;
 padding-bottom: 5px;
 line-height: 20px;
 border: none;
-border-bottom: ${props => props.$isActiveCategory && '3px solid #9758a6'};
+border-bottom: ${(props) => props.$isActiveCategory ? `3px solid ${props.theme.purple}` : 'none'};
 
 `
 
