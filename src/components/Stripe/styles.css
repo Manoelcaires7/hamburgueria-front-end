@@ -67,6 +67,13 @@
   cursor: default;
 }
 
+.status-title{
+  margin: 0;
+  color: #30313D;
+  text-align: center;
+  font-weight: 600;
+}
+
 /* spinner/processing state, errors */
 .spinner,
 .spinner:before,
@@ -198,6 +205,7 @@ td {
 }
 
 #retry-button {
+  text-decoration: none;
   text-align: center;
   background: #0055DE;
   color: #ffffff;

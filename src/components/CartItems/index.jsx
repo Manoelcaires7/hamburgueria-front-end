@@ -45,7 +45,10 @@ export function CartItems(){
                             </Table.Td>
                     </Table.Tr>
                 ))
-            ) : <EmptyCart>Carrinho Vazio</EmptyCart>} </Table.Body>
+            ) : <EmptyCart>
+                 Seu Carrinho está Vazio   
+                </EmptyCart>} 
+            </Table.Body>
         </Table.Root>
     ); 
 };
