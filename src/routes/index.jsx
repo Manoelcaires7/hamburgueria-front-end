@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import {Login, Checkout, Register, Home, Menu, Cart, CompletePayment} from '../containers';
-import { UserLayout } from "../layouts/UserLayouts";
+import {Login, Checkout, Register, Home, Menu, Cart, CompletePayment, Admin} from '../containers';
+import { AdminLayout, UserLayout } from "../layouts";
 
 export function Router(){
     return(
@@ -12,8 +12,11 @@ export function Router(){
             <Route path="/checkout" element={<Checkout/>}/>
             <Route path="/complete" element={<CompletePayment/>}/>        
         </Route>
+        <Route path="/admin" element={<AdminLayout/>}>
+            <Route path="/admin/home" element={<Admin/>}/>
+        </Route>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register/>}/>
+        <Route path="/cadastro" element={<Register/>}/>
     </Routes>
 
     )
