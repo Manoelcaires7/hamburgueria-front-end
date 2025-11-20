@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import {Login, Checkout, Register, Home, Menu, Cart, CompletePayment, Admin} from '../containers';
+import {Login, Checkout, Register, Home, Menu, Cart, CompletePayment, EditProduct, NewProduct, Orders, Product} from '../containers';
 import { AdminLayout, UserLayout } from "../layouts";
 
 export function Router(){
@@ -13,7 +13,10 @@ export function Router(){
             <Route path="/complete" element={<CompletePayment/>}/>        
         </Route>
         <Route path="/admin" element={<AdminLayout/>}>
-            <Route path="/admin/home" element={<Admin/>}/>
+            <Route path="/admin/pedidos" element={<Orders/>}/>
+            <Route path="/admin/novo-produto" element={<NewProduct/>}/>
+            <Route path="/admin/editar-produto" element={<EditProduct/>}/>
+            <Route path="/admin/produtos" element={<Product/>}/>
         </Route>
         <Route path="/login" element={<Login/>}/>
         <Route path="/cadastro" element={<Register/>}/>
