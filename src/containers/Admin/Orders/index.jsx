@@ -19,7 +19,6 @@ const [rows, setRows] = useState([])
     const {data} = await api.get('/orders')
     
   setOrders(data);
-  console.log(data)
   }
   loadOrders();
 }, [])
