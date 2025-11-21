@@ -19,14 +19,15 @@ const [rows, setRows] = useState([])
     const {data} = await api.get('/orders')
     
   setOrders(data);
+  console.log(data)
   }
   loadOrders();
 }, [])
 
 function createData(order) {
   return {
-    name: order.user,
-    orderid: order._id,
+    name: order.user.name,
+    orderId: order._id,
     date: order.createdAt,
     status: order.status,
     products: order.products,
@@ -38,6 +39,7 @@ useEffect(()=>{
 
   setRows(newRows)
 },[orders])
+
 
   return (
     <TableContainer component={Paper}>
@@ -53,7 +55,7 @@ useEffect(()=>{
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row._id} row={row} />
+            <Row key={row._id} row={row}/>
           ))}
         </TableBody>
       </Table>
