@@ -51,10 +51,23 @@ function handleStatus(status) {
     const newOrders = orders.filter( order => order.status === status.value);
 
     setFilteredOrders(newOrders);
+  }
 
     setActiveStatus(status.id)
-  }
 }
+
+useEffect(()=>{
+  if(activeStatus === 0){
+    setFilteredOrders(orders)
+  } else {
+    const statusIndex = orderStatusOptions.findIndex(
+      (item) => item.id === activeStatus);
+
+      const newFilteredOrders = orders.filter(order => order.status === orderStatusOptions[statusIndex].value,        
+    );
+    setFilteredOrders(newFilteredOrders)
+  }
+},[orders])
 
   return (
     <>
