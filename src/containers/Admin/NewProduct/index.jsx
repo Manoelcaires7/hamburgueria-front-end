@@ -79,6 +79,7 @@ useEffect(() => {
                 control={control}
                 render={(field) => (
                 <Select
+                {...field}
                 options={categories}
                 getOptionLabel={(category) => category.name}
                 getOptionValue={(category) => category.id}
