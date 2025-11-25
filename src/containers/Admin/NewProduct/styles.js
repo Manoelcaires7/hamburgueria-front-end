@@ -39,6 +39,14 @@ padding: 0 12px;
 border: none;
 `;
 
+export const ErrorMessage = styled.span`
+color: ${props => props.theme.darkRed};
+font-size: 13px;
+line-height: 90%;
+font-weight: 500;
+margin: 5px 0;
+`;
+
 export const LabelUpload = styled.label`
 cursor: pointer;
 border: 1px dashed ${props=> props.theme.white};
