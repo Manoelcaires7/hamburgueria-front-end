@@ -58,7 +58,7 @@ function handleStatus(status) {
 
 useEffect(()=>{
   if(activeStatus === 0){
-    setFilteredOrders(orders)
+    setFilteredOrders(orders)  
   } else {
     const statusIndex = orderStatusOptions.findIndex(
       (item) => item.id === activeStatus);
