@@ -7,10 +7,14 @@ import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
 
 const schema = yup.object({
-        name: yup.string().required(),
-        price: yup.number().positive().required(),
-        category: yup.object().required(),
-        file: yup.mixed(),
+        name: yup.string().required("Digite o nome do Produto!"),
+        price: yup.number().positive().required("Digite o Preço do Produto").typeError("Digite o Preço do Produto"),
+        category: yup.object().required("Escolha a categoria"),
+        file: yup.mixed().test("required", "Escolha um arquivo para continuar", (value) => {
+            return value && value.length > 0;
+        }).test("fileSize", "Carregue um arquivo de até 5mb", (value) => {
+            return value && value.length > 0 && value[0].size <= 5 * 1024 * 1024;
+  })
     });
 
 export function NewProduct() {
@@ -64,11 +68,12 @@ useEffect(() => {
                     accept="image/png, image/jpeg, image/svg"
                     onChange={(value) => {
                         setFileName(value.target.files[0]?.name);
-                    register('file'.onChange(value))
+                    register('file').onChange(value)
                     }}
                     />
 
                     {fileName || "Upload do Produto"}
+                    <ErrorMessage>{errors?.file?.message}</ErrorMessage>
                 </LabelUpload>
                 </InputGroup>
 
@@ -88,6 +93,7 @@ useEffect(() => {
                 />
             )}
         />
+        <ErrorMessage>{errors?.category?.message}</ErrorMessage>
                 </InputGroup>
 
             <SubmitButton>
