@@ -5,6 +5,7 @@ import { ImageIcon } from "@phosphor-icons/react";
 import { Container, ErrorMessage, Form, Input, InputGroup, Label, LabelUpload, Select, SubmitButton } from "./styles";
 import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
+import { toast } from "react-toastify";
 
 const schema = yup.object({
         name: yup.string().required("Digite o nome do Produto!"),
@@ -14,7 +15,11 @@ const schema = yup.object({
             return value && value.length > 0;
         }).test("fileSize", "Carregue um arquivo de até 5mb", (value) => {
             return value && value.length > 0 && value[0].size <= 5 * 1024 * 1024;
-  })
+        }).test("type", 'Apenas imagens PNG, JPEG ou SVG', (value) => {
+            return value && value.length > 0 && (value[0].type === 'image/png' ||
+             value[0].type === 'image/jpeg' || 
+             value[0].type === 'image/svg')
+        })
     });
 
 export function NewProduct() {
@@ -40,8 +45,19 @@ useEffect(() => {
     } = useForm({
         resolver: yupResolver(schema),
     })
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        const productFormData = new FormData();
+
+        productFormData.append('name', data.name);
+        productFormData.append('price', data.price * 100);
+        productFormData.append('category_id', data.category.id);
+        productFormData.append('file', data.file[0]);
+
+        await toast.promise(api.post('/products', productFormData), {
+            pending: 'Adicionando o Produto...',
+            success: 'Produto Criado com Sucesso!',
+            error: 'Falha ao adicionar o Produto, Tente Novamente!'
+        })
     }
 
     return (
@@ -82,7 +98,7 @@ useEffect(() => {
                 <Controller
                 name='category'
                 control={control}
-                render={(field) => (
+                render={({field}) => (
                 <Select
                 {...field}
                 options={categories}
