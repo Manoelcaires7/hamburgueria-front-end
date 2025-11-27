@@ -73,7 +73,6 @@ export const Select = styled(ReactSelect)``;
 export const SubmitButton = styled(Button)`
 margin-top: 30px;
 `;
-
 export const ContainerCheckBox = styled.div`
 display: flex;
 gap: 10px;

@@ -2,15 +2,17 @@ import { Controller, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { ImageIcon } from "@phosphor-icons/react";
-import { Container, ErrorMessage, Form, Input, InputGroup, Label, LabelUpload, Select, SubmitButton } from "./styles";
+import { Container, ErrorMessage, Form, Input, InputGroup, Label, LabelUpload, Select, SubmitButton, ContainerCheckBox } from "./styles";
 import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
         name: yup.string().required("Digite o nome do Produto!"),
         price: yup.number().positive().required("Digite o Preço do Produto").typeError("Digite o Preço do Produto"),
         category: yup.object().required("Escolha a categoria"),
+        offer: yup.boolean(),
         file: yup.mixed().test("required", "Escolha um arquivo para continuar", (value) => {
             return value && value.length > 0;
         }).test("fileSize", "Carregue um arquivo de até 5mb", (value) => {
@@ -25,6 +27,8 @@ const schema = yup.object({
 export function NewProduct() {
     const [fileName, setFileName] = useState(null);
     const [categories, setCategories] = useState([]); 
+    const navigate = useNavigate();
+
 
 useEffect(() => {
   async function loadCategories(){
@@ -52,12 +56,16 @@ useEffect(() => {
         productFormData.append('price', data.price * 100);
         productFormData.append('category_id', data.category.id);
         productFormData.append('file', data.file[0]);
+        productFormData.append('offer', data.offer);
 
         await toast.promise(api.post('/products', productFormData), {
             pending: 'Adicionando o Produto...',
             success: 'Produto Criado com Sucesso!',
             error: 'Falha ao adicionar o Produto, Tente Novamente!'
         })
+        setTimeout(()=>{
+            navigate('/admin/produtos')
+        }, 2000)
     }
 
     return (
@@ -110,6 +118,13 @@ useEffect(() => {
             )}
         />
         <ErrorMessage>{errors?.category?.message}</ErrorMessage>
+                </InputGroup>
+
+                <InputGroup>
+                    <ContainerCheckBox>
+                        <input type="checkbox"{...register('offer')}/>
+                        <Label>Produto em Oferta ?</Label>
+                    </ContainerCheckBox>
                 </InputGroup>
 
             <SubmitButton>
